@@ -92,7 +92,7 @@ export default function SelectorScreen({ visible, onBack }: Props) {
         fontSize: 11, letterSpacing: '0.22em', color: 'rgba(255,255,255,0.2)',
         pointerEvents: 'none', whiteSpace: 'nowrap',
       }}>
-        FRANCORP
+        Francoorp
       </div>
 
       {/* Hint bottom — oculto en móvil */}

@@ -51,7 +51,7 @@ export default function YouTubeCard({ profile, onDisconnect }: Props) {
         </div>
 
         <p style={{ fontSize: 13, color: 'rgba(245,245,247,0.4)', lineHeight: 1.6, marginBottom: 20, fontFamily: 'var(--font-body)' }}>
-          Conecta tu canal para que Francorp pueda ver tus estadísticas y brindarte un mejor servicio.
+          Conecta tu canal para que Francoorp pueda ver tus estadísticas y brindarte un mejor servicio.
         </p>
 
         <a
