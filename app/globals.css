@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --fc-gold: #c9b99a;
+  --fc-gold-light: #e8dcc8;
+  --fc-bg: #000000;
+  --fc-text: #f5f5f7;
+  --fc-text-muted: rgba(245,245,247,0.5);
+  --fc-text-dim: rgba(245,245,247,0.28);
+  --fc-border: rgba(255,255,255,0.08);
+  --fc-studio-accent: #e8d5b0;
+  --fc-tech-accent: #a8cdf0;
+  --fc-ia-accent: #b8e07a;
+
+  /* Apple-style system font stack */
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --font-display: 'Syne', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--fc-bg);
+  color: var(--fc-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
