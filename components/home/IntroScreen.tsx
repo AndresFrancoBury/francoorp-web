@@ -73,6 +73,21 @@ export default function IntroScreen({ visible, onStart }: Props) {
         Empezar
       </button>
 
+      <a
+        href="/privacidad"
+        style={{
+          marginTop: 24,
+          fontSize: 10,
+          letterSpacing: '0.16em',
+          textTransform: 'uppercase' as const,
+          color: 'rgba(255,255,255,0.35)',
+          textDecoration: 'none',
+          animation: 'fadeUp 1s 0.44s both',
+        }}
+      >
+        Política de privacidad
+      </a>
+
       <style>{`
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(24px); }
