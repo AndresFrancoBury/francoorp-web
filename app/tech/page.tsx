@@ -145,7 +145,9 @@ export default function TechPage() {
             Esto es lo que puedes lograr con un sitio web a medida. Cada proyecto es único, construido desde cero para el cliente.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr',
+maxWidth: 600,
+margin: '0 auto', gap: 16 }}>
             {PROJECTS.map(project => (
               <a
                 key={project.id}

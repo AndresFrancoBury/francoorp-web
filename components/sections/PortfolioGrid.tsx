@@ -4,23 +4,23 @@ import RevealSection from './RevealSection'
 const youtubeProjects = [
   {
     id: 'qeekML0q8yE',
-    title: 'Proyecto 01',
+    title: 'UN DÍA SIENDO MAMÁ DE 5 BEBÉS',
     label: 'Vídeo · YouTube',
   },
   {
     id: 'S7JSXbrz1bY',
-    title: 'Proyecto 02',
+    title: 'EMILY ENTRA A PRIMARIA *regreso a clases *',
     label: 'Vídeo · YouTube',
   },
   {
     id: 'iLDkYtuGovE',
-    title: 'Proyecto 03',
+    title: 'EMILY SE GRADUÓ DEL KINDER *fiesta sorpresa*',
     label: 'Vídeo · YouTube',
   },
 ]
 
 export default function PortfolioGrid({ accent }: { accent: string }) {
-  const emptySlots = [4, 5, 6]
+  const emptySlots: number[] = []
 
   return (
     <section style={{
