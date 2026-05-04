@@ -2,6 +2,18 @@
 import { useEffect, useRef, useState } from 'react'
 import SectionNav from '@/components/sections/SectionNav'
 
+const PROJECTS = [
+  {
+    id: 'nua-spa',
+    title: 'Nüa Spa & Wellness',
+    category: 'Landing Page · Demo',
+    description: 'Sitio web a medida para spa de lujo. Diseño premium, animaciones suaves y experiencia de usuario de primer nivel — construido en Next.js y desplegado en Vercel.',
+    url: 'https://nua-spa.vercel.app/',
+    stack: ['Next.js', 'Tailwind CSS', 'Vercel'],
+    featured: true,
+  },
+]
+
 const SERVICES = [
   {
     id: 'landing',
@@ -26,7 +38,7 @@ const SERVICES = [
     id: 'platform',
     category: 'Desarrollo Web',
     name: 'Plataforma a Medida',
-    price: 'Desde 8.000.000',
+    price: 'Desde 10.000.000',
     duration: '6 – 12 semanas',
     description: 'Sistema web completo con usuarios, roles, bases de datos y paneles de gestión. Para negocios que necesitan más que una página.',
     includes: ['Arquitectura escalable', 'Autenticación y roles', 'Panel de administración', 'Base de datos en tiempo real', 'Integraciones API', 'Despliegue en producción'],
@@ -108,6 +120,7 @@ export default function TechPage() {
   return (
     <main style={{ minHeight: '100vh', background: '#000', fontFamily: 'var(--font-body)' }}>
 
+      {/* HERO */}
       <section style={{ padding: '140px 24px 80px', textAlign: 'center', maxWidth: 800, margin: '0 auto' }}>
         <p style={{ fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#c9b99a', marginBottom: 20 }}>Francoorp · Tech</p>
         <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(36px, 6vw, 72px)', color: '#f5f5f7', letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: 24 }}>
@@ -116,13 +129,127 @@ export default function TechPage() {
         <p style={{ fontSize: 17, color: 'rgba(245,245,247,0.5)', lineHeight: 1.7, maxWidth: 560, margin: '0 auto 40px' }}>
           Desarrollamos webs, apps, tiendas online y automatizaciones con el stack más moderno del mercado. Código limpio, entregas a tiempo.
         </p>
-        <a href="#servicios" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 32px', background: '#c9b99a', color: '#000', borderRadius: 100, fontSize: 14, fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-display)' }}>
-          Ver servicios
+        <a href="#proyectos" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 32px', background: '#c9b99a', color: '#000', borderRadius: 100, fontSize: 14, fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-display)' }}>
+          Ver proyectos
         </a>
       </section>
 
-      <section id="servicios" style={{ padding: '0 24px 48px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+      {/* PROYECTOS */}
+      <section id="proyectos" style={{ padding: '0 24px 80px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', paddingTop: 80 }}>
+          <p style={{ fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#c9b99a', marginBottom: 12, textAlign: 'center' }}>Portafolio</p>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(28px, 4vw, 44px)', color: '#f5f5f7', letterSpacing: '-0.025em', marginBottom: 16, textAlign: 'center' }}>
+            Proyectos reales
+          </h2>
+          <p style={{ fontSize: 15, color: 'rgba(245,245,247,0.4)', maxWidth: 500, margin: '0 auto 56px', textAlign: 'center', lineHeight: 1.7 }}>
+            Esto es lo que puedes lograr con un sitio web a medida. Cada proyecto es único, construido desde cero para el cliente.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 16 }}>
+            {PROJECTS.map(project => (
+              <a
+                key={project.id}
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none', display: 'block' }}
+              >
+                <div style={{
+                  background: 'rgba(201,185,154,0.04)',
+                  border: '1px solid rgba(201,185,154,0.2)',
+                  borderRadius: 20,
+                  overflow: 'hidden',
+                  transition: 'border-color 0.3s, transform 0.3s',
+                  cursor: 'pointer',
+                }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLDivElement
+                    el.style.borderColor = 'rgba(201,185,154,0.5)'
+                    el.style.transform = 'translateY(-4px)'
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLDivElement
+                    el.style.borderColor = 'rgba(201,185,154,0.2)'
+                    el.style.transform = 'translateY(0)'
+                  }}
+                >
+                  {/* Preview iframe */}
+                  <div style={{ width: '100%', aspectRatio: '16/9', position: 'relative', overflow: 'hidden', background: '#0a0a0a' }}>
+                    <iframe
+                      src={project.url}
+                      title={project.title}
+                      style={{
+                        width: '200%',
+                        height: '200%',
+                        border: 'none',
+                        transform: 'scale(0.5)',
+                        transformOrigin: 'top left',
+                        pointerEvents: 'none',
+                      }}
+                      loading="lazy"
+                    />
+                    {/* Overlay con CTA */}
+                    <div style={{
+                      position: 'absolute', inset: 0,
+                      background: 'rgba(0,0,0,0)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      transition: 'background 0.3s',
+                    }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = 'rgba(0,0,0,0.4)' }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = 'rgba(0,0,0,0)' }}
+                    >
+                      <span style={{
+                        fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase',
+                        color: '#fff', background: 'rgba(0,0,0,0.7)',
+                        padding: '8px 18px', borderRadius: 100,
+                        opacity: 0, transition: 'opacity 0.3s',
+                        pointerEvents: 'none',
+                      }}
+                        className="preview-label"
+                      >
+                        Ver sitio →
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Info */}
+                  <div style={{ padding: '24px 28px 28px' }}>
+                    <p style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#c9b99a', marginBottom: 8 }}>
+                      {project.category}
+                    </p>
+                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20, color: '#f5f5f7', marginBottom: 10 }}>
+                      {project.title}
+                    </h3>
+                    <p style={{ fontSize: 13, color: 'rgba(245,245,247,0.45)', lineHeight: 1.7, marginBottom: 16 }}>
+                      {project.description}
+                    </p>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                      {project.stack.map(tech => (
+                        <span key={tech} style={{
+                          fontSize: 11, padding: '3px 10px',
+                          border: '1px solid rgba(201,185,154,0.2)',
+                          color: 'rgba(201,185,154,0.6)',
+                          borderRadius: 100, letterSpacing: '0.04em',
+                        }}>
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICIOS */}
+      <section id="servicios" style={{ padding: '0 24px 48px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', paddingTop: 80 }}>
+          <p style={{ fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#c9b99a', marginBottom: 12, textAlign: 'center' }}>Servicios</p>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(28px, 4vw, 44px)', color: '#f5f5f7', letterSpacing: '-0.025em', marginBottom: 48, textAlign: 'center' }}>
+            ¿Qué necesitas construir?
+          </h2>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 56 }}>
             {CATEGORIES.map(cat => (
               <button key={cat} onClick={() => setActiveCategory(cat)} style={{ padding: '9px 20px', borderRadius: 100, fontSize: 13, cursor: 'pointer', fontFamily: 'var(--font-body)', fontWeight: activeCategory === cat ? 600 : 400, background: activeCategory === cat ? '#c9b99a' : 'rgba(255,255,255,0.05)', color: activeCategory === cat ? '#000' : 'rgba(245,245,247,0.5)', border: activeCategory === cat ? 'none' : '1px solid rgba(255,255,255,0.08)', transition: 'all 0.2s' }}>
@@ -155,6 +282,7 @@ export default function TechPage() {
         </div>
       </section>
 
+      {/* STACK */}
       <section style={{ padding: '80px 24px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#c9b99a', marginBottom: 12 }}>Stack</p>
@@ -176,6 +304,7 @@ export default function TechPage() {
         </div>
       </section>
 
+      {/* CTA */}
       <section style={{ padding: '80px 24px 120px', textAlign: 'center' }}>
         <div style={{ maxWidth: 600, margin: '0 auto' }}>
           <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(28px, 4vw, 48px)', color: '#f5f5f7', letterSpacing: '-0.025em', marginBottom: 16 }}>¿Tienes un proyecto en mente?</h2>
