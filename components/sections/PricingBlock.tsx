@@ -107,7 +107,7 @@ export default function PricingBlock({ title, subtitle, note, plans, accent, acc
                 </ul>
 
                 <a
-                  href={`https://wa.me/${WA_NUMBER}?text=Hola%2C%20me%20interesa%20el%20plan%20${encodeURIComponent(plan.name)}`}
+                  href={`https://wa.me/${WA_NUMBER}?text=Hola%2C%20me%20regalas%más%información%20sobre%20el%20plan%20${encodeURIComponent(plan.name)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
