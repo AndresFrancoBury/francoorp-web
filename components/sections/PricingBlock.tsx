@@ -1,3 +1,4 @@
+'use client'
 import RevealSection from './RevealSection'
 
 interface Plan { name: string; price: string; items: string[]; featured?: boolean }
@@ -9,6 +10,8 @@ interface Props {
   accent: string
   accentBorder: string
 }
+
+const WA_NUMBER = '573171169805'
 
 export default function PricingBlock({ title, subtitle, note, plans, accent, accentBorder }: Props) {
   return (
@@ -40,19 +43,21 @@ export default function PricingBlock({ title, subtitle, note, plans, accent, acc
         </RevealSection>
 
         <div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 280px))',
-  justifyContent: 'center',
-  gap: 16,
-}}>
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: 16,
+          width: '100%',
+        }}>
           {plans.map((plan, i) => (
             <RevealSection key={i} delay={i * 90}>
               <div style={{
+                width: 280,
                 padding: '36px 28px',
                 border: `1px solid ${plan.featured ? accentBorder : 'rgba(255,255,255,0.08)'}`,
                 background: plan.featured ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.025)',
                 borderRadius: 20,
-                position: 'relative', height: '100%',
+                position: 'relative',
                 display: 'flex', flexDirection: 'column',
               }}>
                 {plan.featured && (
@@ -87,7 +92,7 @@ export default function PricingBlock({ title, subtitle, note, plans, accent, acc
                 <ul style={{
                   listStyle: 'none',
                   display: 'flex', flexDirection: 'column', gap: 11,
-                  flex: 1,
+                  flex: 1, marginBottom: 24,
                 }}>
                   {plan.items.map((item, j) => (
                     <li key={j} style={{
@@ -100,6 +105,30 @@ export default function PricingBlock({ title, subtitle, note, plans, accent, acc
                     </li>
                   ))}
                 </ul>
+
+                <a
+                  href={`https://wa.me/${WA_NUMBER}?text=Hola%2C%20me%20interesa%20el%20plan%20${encodeURIComponent(plan.name)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'block',
+                    padding: '11px',
+                    background: plan.featured ? accent : 'rgba(201,185,154,0.08)',
+                    border: plan.featured ? 'none' : `1px solid ${accentBorder}`,
+                    borderRadius: 10,
+                    textAlign: 'center',
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: plan.featured ? '#000' : accent,
+                    textDecoration: 'none',
+                    fontFamily: 'var(--font-body)',
+                    transition: 'opacity 0.2s',
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.opacity = '0.8')}
+                  onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+                >
+                  Quiero este servicio →
+                </a>
               </div>
             </RevealSection>
           ))}
