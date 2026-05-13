@@ -14,10 +14,10 @@ export default function LoginPage() {
   const redirectByRole = async () => {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
+    const userEmail = user.email ?? ''
     const { data: profile } = await supabase
-      .from('profiles').select('role, email').eq('id', user.id).single()
-    const email = profile?.email || user.email
-    if (profile?.role === 'admin' && isAdminAllowed(email)) {
+      .from('profiles').select('role').eq('id', user.id).single()
+    if (profile?.role === 'admin' && isAdminAllowed(userEmail)) {
       window.location.href = '/admin/selector'
     } else {
       window.location.href = '/dashboard'
