@@ -18,6 +18,20 @@
   --font-display: 'Syne', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
 }
 
+/* Screen-reader only — visible para SEO, invisible visualmente */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {

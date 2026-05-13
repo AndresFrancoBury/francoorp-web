@@ -16,9 +16,9 @@ export default function SectionLayout({ division, num, accent, accentDim, taglin
   const router = useRouter()
 
   return (
-    <div style={{ background: '#000', overflowX: 'hidden' }}>
+    <main style={{ background: '#000', overflowX: 'hidden' }}>
       {/* Nav */}
-      <nav style={{
+      <nav aria-label="Navegación principal" style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '18px 40px',
@@ -107,6 +107,6 @@ export default function SectionLayout({ division, num, accent, accentDim, taglin
           50% { transform: translateX(-50%) translateY(7px); opacity: 1; }
         }
       `}</style>
-    </div>
+    </main>
   )
 }
