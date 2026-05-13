@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { isAdminAllowed } from '@/lib/admin-whitelist'
 
 export default function AdminSelectorPage() {
   const router = useRouter()
@@ -14,9 +15,13 @@ export default function AdminSelectorPage() {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) { router.push('/login'); return }
       const { data: profile } = await supabase
-        .from('profiles').select('role, name, full_name').eq('id', user.id).single()
-      if (profile?.role !== 'admin') { router.push('/dashboard'); return }
-      setName(profile?.full_name || profile?.name || 'Admin')
+        .from('profiles').select('role, name, full_name, email').eq('id', user.id).single()
+      const email = profile?.email || user.email
+      if (profile?.role !== 'admin' || !isAdminAllowed(email)) {
+        router.push('/dashboard')
+        return
+      }
+      setName(profile?.full_name || profile?.name || email || 'Admin')
       setChecking(false)
     }
     check()

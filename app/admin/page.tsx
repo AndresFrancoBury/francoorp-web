@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { sendWhatsApp, WA_MESSAGES } from '@/lib/whatsapp'
 import ContextualLogo from '@/components/ContextualLogo'
+import { isAdminAllowed } from '@/lib/admin-whitelist'
 
 type Division = 'studio' | 'tech'
 
@@ -127,8 +128,12 @@ export default function AdminPage() {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) { router.push('/login'); return }
       const { data: profile } = await supabase
-        .from('profiles').select('role').eq('id', user.id).single()
-      if (profile?.role !== 'admin') { router.push('/dashboard'); return }
+        .from('profiles').select('role, email').eq('id', user.id).single()
+      const email = profile?.email || user.email
+      if (profile?.role !== 'admin' || !isAdminAllowed(email)) {
+        router.push('/dashboard')
+        return
+      }
       // Leer el tab del query param
       const params = new URLSearchParams(window.location.search)
       const tabParam = params.get('tab')

@@ -15,8 +15,10 @@ export default function LoginPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
     const { data: profile } = await supabase
-      .from('profiles').select('role').eq('id', user.id).single()
-    window.location.href = profile?.role === 'admin' ? '/admin/selector' : '/dashboard'
+      .from('profiles').select('role, email').eq('id', user.id).single()
+    const { isAdminAllowed } = await import('@/lib/admin-whitelist')
+    const allowed = isAdminAllowed(profile?.email || user.email)
+    window.location.href = (profile?.role === 'admin' && allowed) ? '/admin/selector' : '/dashboard'
   }
 
   const handleSubmit = async () => {

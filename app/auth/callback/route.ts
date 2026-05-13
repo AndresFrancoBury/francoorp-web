@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
+import { isAdminAllowed } from '@/lib/admin-whitelist'
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
@@ -26,8 +27,11 @@ export async function GET(request: Request) {
     const { data: { user } } = await supabase.auth.exchangeCodeForSession(code)
     if (user) {
       const { data: profile } = await supabase
-        .from('profiles').select('role').eq('id', user.id).single()
-      if (profile?.role === 'admin') redirectTo = `${origin}/admin/selector`
+        .from('profiles').select('role, email').eq('id', user.id).single()
+      const email = profile?.email || user.email
+      if (profile?.role === 'admin' && isAdminAllowed(email)) {
+        redirectTo = `${origin}/admin/selector`
+      }
     }
   }
 
