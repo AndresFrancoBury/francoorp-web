@@ -209,10 +209,22 @@ export default function AdminPage() {
 
   const handleSendUpdate = async (p: Project) => {
     const form = updateForms[p.id] || { stage: '', note: '', checkedItems: [] }
-    if (!form.stage) return
+    // Inferir la etapa del último ítem marcado (el más avanzado)
+    const allStages = p.division === 'tech' ? TECH_STAGES : STUDIO_STAGES
+    let inferredStage = form.stage
+    if (!inferredStage) {
+      for (const stage of [...allStages].reverse()) {
+        const items = PHASES_MAP[stage.value] || []
+        if (items.some(item => form.checkedItems.includes(item.key))) {
+          inferredStage = stage.value
+          break
+        }
+      }
+      if (!inferredStage) inferredStage = allStages[0]?.value || 'discovery'
+    }
     setSendingUpdate(p.id)
     await supabase.from('project_updates').insert({
-      project_id: p.id, stage: form.stage, note: form.note.trim() || null,
+      project_id: p.id, stage: inferredStage, note: null,
     })
     for (const itemKey of form.checkedItems) {
       const { data: existing } = await supabase
@@ -228,11 +240,11 @@ export default function AdminPage() {
       adjustments: 'review', design: 'in_progress', development: 'in_progress',
       deploy: 'in_progress', delivered: 'delivered', discovery: 'pending',
     }
-    await supabase.from('projects').update({ status: statusMap[form.stage] || 'in_progress' }).eq('id', p.id)
+    await supabase.from('projects').update({ status: statusMap[inferredStage] || 'in_progress' }).eq('id', p.id)
     const clientWa = clientProfiles[p.client_id]?.whatsapp
     if (clientWa) {
       const trackingUrl = `${window.location.origin}/seguimiento/${p.id}`
-      await sendWhatsApp(clientWa, WA_MESSAGES.techStageUpdated(p.name, form.stage, form.note.trim() || undefined, trackingUrl))
+      await sendWhatsApp(clientWa, WA_MESSAGES.techStageUpdated(p.name, inferredStage, undefined, trackingUrl))
     }
     setUpdateForms(prev => ({ ...prev, [p.id]: { stage: '', note: '', checkedItems: [] } }))
     setShowUpdateForm(prev => ({ ...prev, [p.id]: false }))
@@ -517,7 +529,11 @@ export default function AdminPage() {
                         const { data: existing } = await supabase
                           .from('project_checklist').select('item_key').eq('project_id', p.id).eq('completed', true)
                         const completedKeys = (existing || []).map((r: { item_key: string }) => r.item_key)
-                        setUpdateForms(prev => ({ ...prev, [p.id]: { stage: prev[p.id]?.stage || '', note: prev[p.id]?.note || '', checkedItems: completedKeys } }))
+                        // Pre-seleccionar primera etapa si no hay ninguna seleccionada
+                        const stages = p.division === 'tech' ? TECH_STAGES : STUDIO_STAGES
+                        const currentStage = (prev: Record<string, { stage: string; note: string; checkedItems: string[] }>) =>
+                          prev[p.id]?.stage || stages[0]?.value || ''
+                        setUpdateForms(prev => ({ ...prev, [p.id]: { stage: currentStage(prev), note: prev[p.id]?.note || '', checkedItems: completedKeys } }))
                         setShowUpdateForm(prev => ({ ...prev, [p.id]: true }))
                       }} style={{ flex: 1, padding: '14px 0', display: 'flex', alignItems: 'center', gap: 10, background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'var(--font-body)', textAlign: 'left' }}>
                         <span style={{ fontSize: 18 }}>📊</span>
@@ -532,13 +548,6 @@ export default function AdminPage() {
                       <p style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#7ab4e8', fontFamily: 'var(--font-body)', fontWeight: 600 }}>
                         📊 Actualizar etapa del proyecto
                       </p>
-                      <div>
-                        <label style={{ fontSize: 11, color: 'rgba(245,245,247,0.35)', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 6, fontFamily: 'var(--font-body)' }}>Etapa *</label>
-                        <select value={updForm.stage} onChange={e => setUpdateForms(prev => ({ ...prev, [p.id]: { ...updForm, stage: e.target.value } }))} style={{ ...inputStyle, cursor: 'pointer', background: '#000', color: '#f5f5f7' }}>
-                          <option value="">Selecciona una etapa</option>
-                          {(p.division === 'tech' ? TECH_STAGES : STUDIO_STAGES).map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                        </select>
-                      </div>
 
                       {/* Checklist completo — todas las etapas siempre visibles */}
                       {(() => {
@@ -552,11 +561,10 @@ export default function AdminPage() {
                               {allStages.map(stage => {
                                 const items = PHASES_MAP[stage.value]
                                 if (!items) return null
-                                const isCurrentStage = updForm.stage === stage.value
                                 return (
                                   <div key={stage.value}>
-                                    <p style={{ fontSize: 11, color: isCurrentStage ? '#7ab4e8' : 'rgba(245,245,247,0.25)', fontWeight: isCurrentStage ? 700 : 400, marginBottom: 6, letterSpacing: '0.06em', fontFamily: 'var(--font-body)' }}>
-                                      {stage.label} {isCurrentStage && '← etapa actual'}
+                                    <p style={{ fontSize: 11, color: 'rgba(245,245,247,0.35)', marginBottom: 6, letterSpacing: '0.06em', fontFamily: 'var(--font-body)' }}>
+                                      {stage.label}
                                     </p>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
                                       {items.map(item => {
@@ -582,11 +590,6 @@ export default function AdminPage() {
                         )
                       })()}
 
-                      <div>
-                        <label style={{ fontSize: 11, color: 'rgba(245,245,247,0.35)', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 6, fontFamily: 'var(--font-body)' }}>Nota para el cliente (opcional)</label>
-                        <textarea placeholder="Ej: Ya recibimos tu material, comenzamos mañana..." value={updForm.note} onChange={e => setUpdateForms(prev => ({ ...prev, [p.id]: { ...updForm, note: e.target.value } }))} rows={2} style={{ ...inputStyle, resize: 'vertical' }} />
-                      </div>
-
                       <div style={{ padding: '10px 14px', background: 'rgba(122,180,232,0.05)', border: '1px solid rgba(122,180,232,0.15)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
                         <p style={{ fontSize: 11, color: 'rgba(122,180,232,0.7)' }}>📲 Se enviará WhatsApp con link de seguimiento</p>
                         <button onClick={() => copyLink(p.id)} style={{ padding: '4px 10px', background: copiedId === p.id ? 'rgba(151,196,89,0.15)' : 'rgba(122,180,232,0.1)', border: 'none', borderRadius: 6, fontSize: 11, color: copiedId === p.id ? '#97c459' : '#7ab4e8', cursor: 'pointer', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
@@ -595,7 +598,7 @@ export default function AdminPage() {
                       </div>
 
                       <div style={{ display: 'flex', gap: 10 }}>
-                        <button onClick={() => handleSendUpdate(p)} disabled={sendingUpdate === p.id || !updForm.stage} style={{ flex: 1, padding: '12px', background: '#7ab4e8', color: '#000', border: 'none', borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: sendingUpdate === p.id || !updForm.stage ? 'not-allowed' : 'pointer', fontFamily: 'var(--font-display)', opacity: sendingUpdate === p.id || !updForm.stage ? 0.6 : 1 }}>
+                        <button onClick={() => handleSendUpdate(p)} disabled={sendingUpdate === p.id} style={{ flex: 1, padding: '12px', background: '#7ab4e8', color: '#000', border: 'none', borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: sendingUpdate === p.id ? 'not-allowed' : 'pointer', fontFamily: 'var(--font-display)', opacity: sendingUpdate === p.id ? 0.6 : 1 }}>
                           {sendingUpdate === p.id ? 'Publicando...' : '📊 Publicar + notificar WhatsApp'}
                         </button>
                         <button onClick={() => setShowUpdateForm(prev => ({ ...prev, [p.id]: false }))} style={{ padding: '12px 16px', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, color: 'rgba(245,245,247,0.4)', fontSize: 13, cursor: 'pointer', fontFamily: 'var(--font-body)' }}>
