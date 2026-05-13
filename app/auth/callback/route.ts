@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server'
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
+  let redirectTo = `${origin}/dashboard`
 
   if (code) {
     const cookieStore = await cookies()
@@ -22,8 +23,13 @@ export async function GET(request: Request) {
         },
       }
     )
-    await supabase.auth.exchangeCodeForSession(code)
+    const { data: { user } } = await supabase.auth.exchangeCodeForSession(code)
+    if (user) {
+      const { data: profile } = await supabase
+        .from('profiles').select('role').eq('id', user.id).single()
+      if (profile?.role === 'admin') redirectTo = `${origin}/admin/selector`
+    }
   }
 
-  return NextResponse.redirect(`${origin}/dashboard`)
+  return NextResponse.redirect(redirectTo)
 }

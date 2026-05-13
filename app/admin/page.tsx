@@ -129,6 +129,10 @@ export default function AdminPage() {
       const { data: profile } = await supabase
         .from('profiles').select('role').eq('id', user.id).single()
       if (profile?.role !== 'admin') { router.push('/dashboard'); return }
+      // Leer el tab del query param
+      const params = new URLSearchParams(window.location.search)
+      const tabParam = params.get('tab')
+      if (tabParam === 'tech' || tabParam === 'studio') setTab(tabParam)
       await loadData()
       setLoading(false)
     }
@@ -307,6 +311,9 @@ export default function AdminPage() {
           <ContextualLogo />
         </h1>
         <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+          <button onClick={() => router.push('/admin/selector')} style={{ padding: '10px 20px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, background: 'transparent', color: 'rgba(245,245,247,0.45)', fontFamily: 'var(--font-body)', fontSize: 12, cursor: 'pointer' }}>
+            ← Cambiar panel
+          </button>
           <button onClick={async () => { await supabase.auth.signOut(); window.location.href = '/login' }} style={{ padding: '10px 20px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, background: 'transparent', color: 'rgba(245,245,247,0.45)', fontFamily: 'var(--font-body)', fontSize: 12, cursor: 'pointer' }}>
             Cerrar sesión
           </button>

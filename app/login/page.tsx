@@ -11,13 +11,21 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [mode, setMode] = useState<'login' | 'register'>('login')
 
+  const redirectByRole = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+    const { data: profile } = await supabase
+      .from('profiles').select('role').eq('id', user.id).single()
+    window.location.href = profile?.role === 'admin' ? '/admin/selector' : '/dashboard'
+  }
+
   const handleSubmit = async () => {
     setLoading(true)
     setError('')
     if (mode === 'login') {
       const { error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) { setError(error.message); setLoading(false); return }
-      window.location.href = '/dashboard'
+      await redirectByRole()
     } else {
       const { error } = await supabase.auth.signUp({ email, password })
       if (error) { setError(error.message); setLoading(false); return }

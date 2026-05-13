@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import SectionNav from '@/components/sections/SectionNav'
 
 const PROJECTS = [
@@ -105,6 +106,9 @@ export default function TechPage() {
   const [activeCategory, setActiveCategory] = useState('Todos')
   const [visible, setVisible] = useState<Set<string>>(new Set())
   const refs = useRef<Record<string, HTMLDivElement | null>>({})
+  const router = useRouter()
+  const [projectId, setProjectId] = useState('')
+  const [trackingError, setTrackingError] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -303,6 +307,65 @@ margin: '0 auto', gap: 16 }}>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* SEGUIMIENTO DE PROYECTO */}
+      <section id="seguimiento" style={{ padding: '80px 24px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: 600, margin: '0 auto', textAlign: 'center' }}>
+          <p style={{ fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#a8cdf0', marginBottom: 12 }}>Seguimiento</p>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(28px, 4vw, 44px)', color: '#f5f5f7', letterSpacing: '-0.025em', marginBottom: 16 }}>
+            ¿Tienes un proyecto en curso?
+          </h2>
+          <p style={{ fontSize: 16, color: 'rgba(245,245,247,0.45)', lineHeight: 1.7, maxWidth: 480, margin: '0 auto 40px' }}>
+            Ingresa el ID de tu proyecto para ver en qué fase estamos, las tareas completadas y el progreso en tiempo real.
+          </p>
+
+          <div style={{ display: 'flex', gap: 10, maxWidth: 460, margin: '0 auto', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <input
+              type="text"
+              placeholder="ID de tu proyecto"
+              value={projectId}
+              onChange={e => { setProjectId(e.target.value); setTrackingError(false) }}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && projectId.trim()) {
+                  router.push(`/seguimiento/${projectId.trim()}`)
+                }
+              }}
+              style={{
+                flex: 1, minWidth: 240,
+                padding: '14px 18px',
+                background: 'rgba(168,205,240,0.06)',
+                border: `1px solid ${trackingError ? 'rgba(226,75,74,0.5)' : 'rgba(168,205,240,0.25)'}`,
+                borderRadius: 12, color: '#f5f5f7', fontSize: 14,
+                outline: 'none', fontFamily: 'var(--font-body)',
+                letterSpacing: '0.04em',
+              }}
+            />
+            <button
+              onClick={() => {
+                if (!projectId.trim()) { setTrackingError(true); return }
+                router.push(`/seguimiento/${projectId.trim()}`)
+              }}
+              style={{
+                padding: '14px 28px', background: '#a8cdf0', color: '#000',
+                border: 'none', borderRadius: 12, fontSize: 14, fontWeight: 700,
+                cursor: 'pointer', fontFamily: 'var(--font-display)', whiteSpace: 'nowrap',
+              }}
+            >
+              Ver estado →
+            </button>
+          </div>
+
+          {trackingError && (
+            <p style={{ fontSize: 13, color: '#e24b4a', marginTop: 12 }}>
+              Por favor ingresa el ID de tu proyecto.
+            </p>
+          )}
+
+          <p style={{ fontSize: 12, color: 'rgba(245,245,247,0.25)', marginTop: 16 }}>
+            Encontrarás el ID en el WhatsApp que te enviamos al iniciar tu proyecto.
+          </p>
         </div>
       </section>
 
