@@ -540,24 +540,41 @@ export default function AdminPage() {
                         </select>
                       </div>
 
-                      {/* Checklist */}
-                      {updForm.stage && (() => {
-                        const items = PHASES_MAP[updForm.stage]
-                        if (!items) return null
+                      {/* Checklist completo — todas las etapas siempre visibles */}
+                      {(() => {
+                        const allStages = p.division === 'tech' ? TECH_STAGES : STUDIO_STAGES
                         return (
                           <div>
-                            <label style={{ fontSize: 11, color: 'rgba(245,245,247,0.35)', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 8, fontFamily: 'var(--font-body)' }}>Marcar como completado</label>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                              {items.map(item => {
-                                const checked = updForm.checkedItems.includes(item.key)
+                            <label style={{ fontSize: 11, color: 'rgba(245,245,247,0.35)', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 10, fontFamily: 'var(--font-body)' }}>
+                              Tareas completadas
+                            </label>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                              {allStages.map(stage => {
+                                const items = PHASES_MAP[stage.value]
+                                if (!items) return null
+                                const isCurrentStage = updForm.stage === stage.value
                                 return (
-                                  <label key={item.key} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', background: checked ? 'rgba(151,196,89,0.05)' : 'rgba(255,255,255,0.02)', border: `1px solid ${checked ? 'rgba(151,196,89,0.2)' : 'rgba(255,255,255,0.06)'}`, borderRadius: 8, cursor: 'pointer' }}>
-                                    <input type="checkbox" checked={checked} onChange={e => {
-                                      const updated = e.target.checked ? [...updForm.checkedItems, item.key] : updForm.checkedItems.filter(k => k !== item.key)
-                                      setUpdateForms(prev => ({ ...prev, [p.id]: { ...updForm, checkedItems: updated } }))
-                                    }} style={{ cursor: 'pointer', width: 15, height: 15, accentColor: '#97c459' }} />
-                                    <span style={{ fontSize: 12, color: checked ? '#97c459' : 'rgba(245,245,247,0.5)' }}>{item.label}</span>
-                                  </label>
+                                  <div key={stage.value}>
+                                    <p style={{ fontSize: 11, color: isCurrentStage ? '#7ab4e8' : 'rgba(245,245,247,0.25)', fontWeight: isCurrentStage ? 700 : 400, marginBottom: 6, letterSpacing: '0.06em', fontFamily: 'var(--font-body)' }}>
+                                      {stage.label} {isCurrentStage && '← etapa actual'}
+                                    </p>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+                                      {items.map(item => {
+                                        const checked = updForm.checkedItems.includes(item.key)
+                                        return (
+                                          <label key={item.key} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 12px', background: checked ? 'rgba(151,196,89,0.05)' : 'rgba(255,255,255,0.02)', border: `1px solid ${checked ? 'rgba(151,196,89,0.2)' : 'rgba(255,255,255,0.05)'}`, borderRadius: 8, cursor: 'pointer' }}>
+                                            <input type="checkbox" checked={checked} onChange={e => {
+                                              const updated = e.target.checked
+                                                ? [...updForm.checkedItems, item.key]
+                                                : updForm.checkedItems.filter(k => k !== item.key)
+                                              setUpdateForms(prev => ({ ...prev, [p.id]: { ...updForm, checkedItems: updated } }))
+                                            }} style={{ cursor: 'pointer', width: 15, height: 15, accentColor: '#97c459', flexShrink: 0 }} />
+                                            <span style={{ fontSize: 12, color: checked ? '#97c459' : 'rgba(245,245,247,0.4)' }}>{item.label}</span>
+                                          </label>
+                                        )
+                                      })}
+                                    </div>
+                                  </div>
                                 )
                               })}
                             </div>

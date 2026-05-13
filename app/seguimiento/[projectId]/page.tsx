@@ -26,6 +26,21 @@ type Update = {
   created_at: string
 }
 
+const formatBogota = (dateStr: string, showTime = false) => {
+  const d = new Date(dateStr)
+  if (showTime) {
+    return d.toLocaleString('es-CO', {
+      timeZone: 'America/Bogota',
+      day: 'numeric', month: 'short',
+      hour: '2-digit', minute: '2-digit', hour12: true,
+    })
+  }
+  return d.toLocaleDateString('es-CO', {
+    timeZone: 'America/Bogota',
+    day: 'numeric', month: 'short',
+  })
+}
+
 const STUDIO_PHASES = [
   {
     key: 'received', label: 'Material recibido', icon: '📥',
@@ -297,7 +312,7 @@ export default function SeguimientoPage({ params }: { params: Promise<{ projectI
                           </p>
                           {completedAt && (
                             <p style={{ fontSize: 10, color: 'rgba(245,245,247,0.2)', whiteSpace: 'nowrap' }}>
-                              {new Date(completedAt).toLocaleString('es-CO', { timeZone: 'America/Bogota', day: 'numeric', month: 'short' })}
+                              {formatBogota(completedAt)}
                             </p>
                           )}
                         </div>
@@ -328,7 +343,7 @@ export default function SeguimientoPage({ params }: { params: Promise<{ projectI
                           {phase?.label || u.stage}
                         </p>
                         <p style={{ fontSize: 11, color: 'rgba(245,245,247,0.25)' }}>
-                          {new Date(u.created_at).toLocaleString('es-CO', { timeZone: 'America/Bogota', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true })}
+                          {formatBogota(u.created_at, true)}
                         </p>
                       </div>
                       {u.note && <p style={{ fontSize: 13, color: 'rgba(245,245,247,0.45)', lineHeight: 1.6 }}>{u.note}</p>}
