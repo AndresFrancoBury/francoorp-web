@@ -90,7 +90,7 @@ export default function DashboardPage() {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) { window.location.href = '/login'; return }
       const { data: prof } = await supabase.from('profiles').select('name, email, full_name, document_id, phone, address, whatsapp, role, youtube_channel_id, youtube_channel_name, youtube_channel_description, youtube_channel_thumbnail, youtube_subscribers, youtube_video_count, youtube_view_count, youtube_connected_at').eq('id', user.id).single()
-      if (prof?.role === 'admin') { window.location.href = '/admin'; return }
+      if (prof?.role === 'admin') { window.location.href = '/admin/selector'; return }
       setProfile(prof)
       setProfileForm({ full_name: prof?.full_name || '', document_id: prof?.document_id || '', phone: prof?.phone || '', address: prof?.address || '', whatsapp: prof?.whatsapp || '' })
       setUserName(prof?.full_name || prof?.name || prof?.email || 'Cliente')
