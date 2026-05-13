@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { isAdminAllowed } from '@/lib/admin-whitelist'
 
 export default function AdminSelectorPage() {
   const router = useRouter()
@@ -14,18 +13,7 @@ export default function AdminSelectorPage() {
     const check = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) { router.push('/login'); return }
-
-      // El email viene de auth.users (user.email), no de profiles
-      const userEmail = user.email ?? ''
-
-      const { data: profile } = await supabase
-        .from('profiles').select('role, name, full_name').eq('id', user.id).single()
-
-      if (profile?.role !== 'admin' || !isAdminAllowed(userEmail)) {
-        router.push('/dashboard')
-        return
-      }
-      setName(profile?.full_name || profile?.name || userEmail || 'Admin')
+      setName(user.email || 'Admin')
       setChecking(false)
     }
     check()

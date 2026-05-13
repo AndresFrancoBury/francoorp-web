@@ -127,13 +127,9 @@ export default function AdminPage() {
     const load = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) { router.push('/login'); return }
-      const userEmail = user.email ?? ''
       const { data: profile } = await supabase
         .from('profiles').select('role').eq('id', user.id).single()
-      if (profile?.role !== 'admin' || !isAdminAllowed(userEmail)) {
-        router.push('/dashboard')
-        return
-      }
+      if (profile?.role !== 'admin') { router.push('/dashboard'); return }
       // Leer el tab del query param
       const params = new URLSearchParams(window.location.search)
       const tabParam = params.get('tab')
