@@ -130,7 +130,7 @@ const TECH_PHASES = [
   },
 ]
 
-export default function SeguimientoPage({ params }: { params: { projectId: string } }) {
+export default function SeguimientoPage({ params }: { params: Promise<{ projectId: string }> }) {
   const supabase = createClient()
   const [project, setProject] = useState<Project | null>(null)
   const [checklist, setChecklist] = useState<ChecklistItem[]>([])
@@ -140,23 +140,24 @@ export default function SeguimientoPage({ params }: { params: { projectId: strin
 
   useEffect(() => {
     const load = async () => {
+      const { projectId } = await params
       const { data: proj } = await supabase
-        .from('projects').select('*').eq('id', params.projectId).single()
+        .from('projects').select('*').eq('id', projectId).single()
       if (!proj) { setNotFound(true); setLoading(false); return }
       setProject(proj)
 
       const { data: checks } = await supabase
-        .from('project_checklist').select('*').eq('project_id', params.projectId)
+        .from('project_checklist').select('*').eq('project_id', projectId)
       setChecklist(checks || [])
 
       const { data: upds } = await supabase
-        .from('project_updates').select('*').eq('project_id', params.projectId)
+        .from('project_updates').select('*').eq('project_id', projectId)
         .order('created_at', { ascending: false })
       setUpdates(upds || [])
       setLoading(false)
     }
     load()
-  }, [params.projectId])
+  }, [params])
 
   const isItemCompleted = (key: string) => checklist.find(c => c.item_key === key)?.completed || false
   const getItemDate = (key: string) => checklist.find(c => c.item_key === key)?.completed_at || null

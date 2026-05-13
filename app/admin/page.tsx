@@ -311,7 +311,7 @@ export default function AdminPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#000', fontFamily: 'var(--font-body)' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(20px)', position: 'sticky', top: 0, zIndex: 50 }}>
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(20px)', position: 'sticky', top: 0, zIndex: 50, flexWrap: 'wrap', gap: 10 }}>
         <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 18, color: '#f5f5f7' }}>
           <ContextualLogo />
         </h1>
@@ -328,7 +328,7 @@ export default function AdminPage() {
         </div>
       </nav>
 
-      <main style={{ maxWidth: 960, margin: '0 auto', padding: '40px 24px' }}>
+      <main style={{ maxWidth: 960, margin: '0 auto', padding: '32px 16px' }}>
 
         {/* Tabs */}
         <div style={{ display: 'flex', gap: 4, marginBottom: 32, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
@@ -349,7 +349,7 @@ export default function AdminPage() {
         {showForm && tab === 'studio' && (
           <div style={{ border: '1px solid rgba(201,185,154,0.3)', borderRadius: 16, padding: '32px', background: 'rgba(201,185,154,0.04)', marginBottom: 32 }}>
             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#f5f5f7', marginBottom: 24 }}>Crear proyecto Studio</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12 }}>
               <input style={inputStyle} placeholder="Correo del cliente" value={studioForm.client_email} onChange={e => setStudioForm(f => ({ ...f, client_email: e.target.value }))} />
               <input style={inputStyle} placeholder="Nombre del proyecto" value={studioForm.name} onChange={e => setStudioForm(f => ({ ...f, name: e.target.value }))} />
               <input style={inputStyle} placeholder="Tipo de servicio" value={studioForm.service_type} onChange={e => setStudioForm(f => ({ ...f, service_type: e.target.value }))} />
@@ -373,7 +373,7 @@ export default function AdminPage() {
         {showForm && tab === 'tech' && (
           <div style={{ border: '1px solid rgba(122,180,232,0.3)', borderRadius: 16, padding: '32px', background: 'rgba(122,180,232,0.04)', marginBottom: 32 }}>
             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#f5f5f7', marginBottom: 24 }}>Crear proyecto Tech</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12 }}>
               <input style={inputStyle} placeholder="Correo del cliente" value={techForm.client_email} onChange={e => setTechForm(f => ({ ...f, client_email: e.target.value }))} />
               <input style={inputStyle} placeholder="Nombre del proyecto. Ej: Web Corporativa TiendaX" value={techForm.name} onChange={e => setTechForm(f => ({ ...f, name: e.target.value }))} />
               <div style={{ gridColumn: '1 / -1' }}>
@@ -450,7 +450,7 @@ export default function AdminPage() {
               <div key={p.id} style={{ border: `1px solid rgba(255,255,255,0.08)`, borderRadius: 14, overflow: 'hidden', background: 'rgba(255,255,255,0.02)' }}>
 
                 {/* Header */}
-                <div style={{ padding: '24px 28px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+                <div style={{ padding: '20px 20px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                       <span style={{ fontSize: 10, padding: '2px 10px', borderRadius: 100, background: `${divColor}15`, color: divColor, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
@@ -466,12 +466,16 @@ export default function AdminPage() {
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-end' }}>
                     <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 18, color: divColor }}>${p.total_price.toLocaleString()} COP</span>
-                    <button onClick={() => updateStatus(p.id, 'payment_status', p.payment_status === 'pending' ? 'paid' : 'pending')} style={{ padding: '6px 14px', borderRadius: 100, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', background: p.payment_status === 'paid' ? 'rgba(151,196,89,0.12)' : 'rgba(226,75,74,0.12)', color: p.payment_status === 'paid' ? '#97c459' : '#e24b4a', border: 'none', cursor: 'pointer', fontFamily: 'var(--font-body)' }}>
-                      {p.payment_status === 'paid' ? '✓ Pagado' : '✗ Pendiente — clic para confirmar'}
-                    </button>
-                    <select value={p.status} onChange={e => updateStatus(p.id, 'status', e.target.value)} style={{ padding: '6px 12px', borderRadius: 8, background: 'rgba(255,255,255,0.06)', border: `1px solid ${STATUS_COLOR[p.status]}40`, color: STATUS_COLOR[p.status], fontSize: 12, cursor: 'pointer', fontFamily: 'var(--font-body)', outline: 'none' }}>
-                      {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                    </select>
+                    {p.division !== 'tech' && (
+                      <>
+                        <button onClick={() => updateStatus(p.id, 'payment_status', p.payment_status === 'pending' ? 'paid' : 'pending')} style={{ padding: '6px 14px', borderRadius: 100, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', background: p.payment_status === 'paid' ? 'rgba(151,196,89,0.12)' : 'rgba(226,75,74,0.12)', color: p.payment_status === 'paid' ? '#97c459' : '#e24b4a', border: 'none', cursor: 'pointer', fontFamily: 'var(--font-body)' }}>
+                          {p.payment_status === 'paid' ? '✓ Pagado' : '✗ Pendiente — clic para confirmar'}
+                        </button>
+                        <select value={p.status} onChange={e => updateStatus(p.id, 'status', e.target.value)} style={{ padding: '6px 12px', borderRadius: 8, background: 'rgba(255,255,255,0.06)', border: `1px solid ${STATUS_COLOR[p.status]}40`, color: STATUS_COLOR[p.status], fontSize: 12, cursor: 'pointer', fontFamily: 'var(--font-body)', outline: 'none' }}>
+                          {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                        </select>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -527,7 +531,7 @@ export default function AdminPage() {
                       </p>
                       <div>
                         <label style={{ fontSize: 11, color: 'rgba(245,245,247,0.35)', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 6, fontFamily: 'var(--font-body)' }}>Etapa *</label>
-                        <select value={updForm.stage} onChange={e => setUpdateForms(prev => ({ ...prev, [p.id]: { ...updForm, stage: e.target.value, checkedItems: [] } }))} style={{ ...inputStyle, cursor: 'pointer' }}>
+                        <select value={updForm.stage} onChange={e => setUpdateForms(prev => ({ ...prev, [p.id]: { ...updForm, stage: e.target.value, checkedItems: [] } }))} style={{ ...inputStyle, cursor: 'pointer', background: '#000', color: '#f5f5f7' }}>
                           <option value="">Selecciona una etapa</option>
                           {(p.division === 'tech' ? TECH_STAGES : STUDIO_STAGES).map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
                         </select>
