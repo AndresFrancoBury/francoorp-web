@@ -297,7 +297,7 @@ export default function SeguimientoPage({ params }: { params: Promise<{ projectI
                           </p>
                           {completedAt && (
                             <p style={{ fontSize: 10, color: 'rgba(245,245,247,0.2)', whiteSpace: 'nowrap' }}>
-                              {new Date(completedAt).toLocaleDateString('es-CO', { day: 'numeric', month: 'short' })}
+                              {new Date(completedAt).toLocaleString('es-CO', { timeZone: 'America/Bogota', day: 'numeric', month: 'short' })}
                             </p>
                           )}
                         </div>
@@ -328,7 +328,7 @@ export default function SeguimientoPage({ params }: { params: Promise<{ projectI
                           {phase?.label || u.stage}
                         </p>
                         <p style={{ fontSize: 11, color: 'rgba(245,245,247,0.25)' }}>
-                          {new Date(u.created_at).toLocaleDateString('es-CO', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                          {new Date(u.created_at).toLocaleString('es-CO', { timeZone: 'America/Bogota', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true })}
                         </p>
                       </div>
                       {u.note && <p style={{ fontSize: 13, color: 'rgba(245,245,247,0.45)', lineHeight: 1.6 }}>{u.note}</p>}

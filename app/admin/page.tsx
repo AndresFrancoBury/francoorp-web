@@ -512,7 +512,14 @@ export default function AdminPage() {
                 <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
                   {!isShowingUpdate ? (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 28px' }}>
-                      <button onClick={() => setShowUpdateForm(prev => ({ ...prev, [p.id]: true }))} style={{ flex: 1, padding: '14px 0', display: 'flex', alignItems: 'center', gap: 10, background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'var(--font-body)', textAlign: 'left' }}>
+                      <button onClick={async () => {
+                        // Pre-cargar ítems ya completados para este proyecto
+                        const { data: existing } = await supabase
+                          .from('project_checklist').select('item_key').eq('project_id', p.id).eq('completed', true)
+                        const completedKeys = (existing || []).map((r: { item_key: string }) => r.item_key)
+                        setUpdateForms(prev => ({ ...prev, [p.id]: { stage: prev[p.id]?.stage || '', note: prev[p.id]?.note || '', checkedItems: completedKeys } }))
+                        setShowUpdateForm(prev => ({ ...prev, [p.id]: true }))
+                      }} style={{ flex: 1, padding: '14px 0', display: 'flex', alignItems: 'center', gap: 10, background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'var(--font-body)', textAlign: 'left' }}>
                         <span style={{ fontSize: 18 }}>📊</span>
                         <span style={{ fontSize: 12, color: 'rgba(245,245,247,0.4)' }}>Publicar actualización de etapa</span>
                       </button>
@@ -527,7 +534,7 @@ export default function AdminPage() {
                       </p>
                       <div>
                         <label style={{ fontSize: 11, color: 'rgba(245,245,247,0.35)', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 6, fontFamily: 'var(--font-body)' }}>Etapa *</label>
-                        <select value={updForm.stage} onChange={e => setUpdateForms(prev => ({ ...prev, [p.id]: { ...updForm, stage: e.target.value, checkedItems: [] } }))} style={{ ...inputStyle, cursor: 'pointer', background: '#000', color: '#f5f5f7' }}>
+                        <select value={updForm.stage} onChange={e => setUpdateForms(prev => ({ ...prev, [p.id]: { ...updForm, stage: e.target.value } }))} style={{ ...inputStyle, cursor: 'pointer', background: '#000', color: '#f5f5f7' }}>
                           <option value="">Selecciona una etapa</option>
                           {(p.division === 'tech' ? TECH_STAGES : STUDIO_STAGES).map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
                         </select>
