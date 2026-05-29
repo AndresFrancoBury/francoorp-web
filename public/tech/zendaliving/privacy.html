@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Política de Privacidad · Zenda Living</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/tech/zendaliving/assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/tech/zendaliving/assets/favicon-16.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,17 +14,17 @@
 <style>
   :root {
     --ink:    oklch(0.20 0.06 270);
-    --ink-soft: oklch(0.32 0.08 266);
-    --navy-700: oklch(0.40 0.10 264);
-    --navy-200: oklch(0.88 0.025 260);
-    --navy-100: oklch(0.94 0.015 260);
-    --cream:    oklch(0.985 0.008 85);
-    --paper:    oklch(0.97 0.012 80);
-    --clay:     oklch(0.55 0.14 152);
+    --ink-soft: oklch(0.40 0.06 268);
+    --navy-700: oklch(0.46 0.06 266);
+    --navy-200: oklch(0.88 0.012 260);
+    --navy-100: oklch(0.94 0.008 260);
+    --cream:    oklch(0.985 0 0);
+    --paper:    oklch(0.97 0 0);
+    --clay:     oklch(0.55 0.13 268);
     --serif: 'Instrument Serif', 'Times New Roman', serif;
     --sans:  'Inter', system-ui, sans-serif;
     --mono:  'JetBrains Mono', ui-monospace, monospace;
-    --max:   840px;
+    --max:   780px;
     --gutter: clamp(20px, 4vw, 40px);
   }
   *, *::before, *::after { box-sizing: border-box; }
@@ -35,11 +37,10 @@
     font-size: 16px;
     line-height: 1.6;
   }
-  a { color: var(--ink); }
+  a { color: var(--clay); }
   img { display: block; max-width: 100%; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 
-  /* Nav */
   .nav {
     position: sticky; top: 0; z-index: 50;
     background: color-mix(in oklch, var(--cream) 85%, transparent);
@@ -50,73 +51,56 @@
     max-width: 1240px; margin: 0 auto;
     padding: 0 var(--gutter);
     display: flex; align-items: center; justify-content: space-between;
-    height: 72px;
+    height: 80px;
   }
-  .logo img { height: 36px; width: auto; }
+  .logo img { height: 52px; width: auto; }
   .back-link {
-    text-decoration: none;
-    font-size: 14px;
-    color: var(--ink-soft);
+    text-decoration: none; font-size: 14px; color: var(--ink-soft);
     display: inline-flex; align-items: center; gap: 6px;
   }
-  .back-link:hover { color: var(--ink); }
+  .back-link:hover { color: var(--clay); }
 
-  /* Content */
-  main { padding: clamp(48px, 8vw, 96px) 0 clamp(80px, 12vw, 160px); }
+  main { padding: clamp(48px, 8vw, 88px) 0 clamp(72px, 10vw, 128px); }
 
   .eyebrow {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--navy-700);
-    font-weight: 500;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--navy-700); font-weight: 500;
     display: inline-flex; align-items: center; gap: 8px;
   }
   .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--clay); }
 
   h1 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(40px, 6vw, 64px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 16px 0 0;
-    color: var(--ink);
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(40px, 6vw, 60px); line-height: 1.05;
+    letter-spacing: -0.02em; margin: 16px 0 0; color: var(--ink);
   }
   .updated { font-family: var(--mono); font-size: 12px; color: var(--navy-700); margin-top: 16px; }
 
-  .content-placeholder {
-    margin-top: clamp(40px, 5vw, 64px);
-    padding: clamp(32px, 5vw, 56px);
-    background: white;
-    border: 1px dashed var(--navy-200);
-    border-radius: 14px;
-    color: var(--navy-700);
-    font-size: 15px;
-    text-align: center;
-    min-height: 320px;
-    display: grid;
-    place-items: center;
+  .legal { margin-top: clamp(40px, 5vw, 60px); }
+  .legal section {
+    border-top: 1px solid var(--navy-100);
+    padding-top: 28px; margin-top: 28px;
   }
-  .content-placeholder code {
-    font-family: var(--mono);
-    background: var(--paper);
-    padding: 2px 8px;
-    border-radius: 4px;
-    color: var(--ink);
+  .legal section:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+  .legal h2 { font-family: var(--sans); font-weight: 600; font-size: 19px; margin: 0 0 12px; color: var(--ink); letter-spacing: -0.01em; }
+  .legal p { margin: 0 0 12px; color: var(--ink-soft); font-size: 15.5px; line-height: 1.75; }
+  .legal p:last-child { margin-bottom: 0; }
+  .legal ul { margin: 4px 0 12px; padding-left: 20px; color: var(--ink-soft); font-size: 15.5px; line-height: 1.7; }
+  .legal li { margin-bottom: 6px; }
+  .legal strong { color: var(--ink); font-weight: 600; }
+  .contact-card {
+    margin-top: 16px; padding: 20px 24px;
+    border: 1px solid var(--navy-200); border-radius: 12px; background: white;
   }
+  .contact-card .name { font-weight: 700; font-size: 16px; color: var(--ink); margin: 0 0 6px; }
+  .contact-card .meta { font-size: 14px; color: var(--navy-700); margin: 0 0 3px; }
 
-  /* Footer */
   footer {
-    padding: 32px 0;
-    border-top: 1px solid var(--navy-200);
-    font-size: 12.5px;
-    color: var(--navy-700);
+    padding: 32px 0; border-top: 1px solid var(--navy-200);
+    font-size: 12.5px; color: var(--navy-700);
   }
   footer .row {
-    max-width: 1240px; margin: 0 auto;
-    padding: 0 var(--gutter);
+    max-width: 1240px; margin: 0 auto; padding: 0 var(--gutter);
     display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px;
   }
   footer a { color: var(--navy-700); text-decoration: none; }
@@ -138,14 +122,65 @@
   <div class="wrap">
     <span class="eyebrow"><span class="dot"></span>LEGAL</span>
     <h1>Política de Privacidad</h1>
-    <div class="updated">Última actualización: —</div>
+    <div class="updated">Última actualización: mayo de 2026</div>
 
-    <div class="content-placeholder">
-      <div>
-        <div style="font-size:13px;font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;color:var(--clay);">Contenido pendiente</div>
-        <div>Pega aquí el texto de tu Política de Privacidad.<br/>
-        Edita este archivo: <code>privacy.html</code></div>
-      </div>
+    <div class="legal">
+      <section>
+        <h2>1. Quiénes somos</h2>
+        <p>Zenda Living es una plataforma de <strong>Francoorp SAS</strong>, con sede en Colombia, para la administración de conjuntos residenciales y propiedades horizontales. Operamos a través del sitio <strong>www.francoorp.com/tech/zendaliving</strong> y de las aplicaciones de administración y residentes. Para consultas sobre esta política escríbenos a <a href="mailto:gerencia@francoorp.com">gerencia@francoorp.com</a>.</p>
+      </section>
+
+      <section>
+        <h2>2. Datos que recopilamos</h2>
+        <p>Para prestar el servicio recopilamos los datos necesarios para administrar el conjunto residencial, entre ellos:</p>
+        <ul>
+          <li>Datos de identificación: nombre completo, cédula o NIT, unidad o apartamento y torre.</li>
+          <li>Datos de contacto: correo electrónico, número de teléfono y número de WhatsApp.</li>
+          <li>Datos operativos: reservas de zonas comunes, PQRS, comunicados, visitantes y correspondencia.</li>
+          <li>Datos financieros: estado de cuenta, cobros, pagos, multas y comprobantes de pago.</li>
+        </ul>
+        <p>Solo recopilamos la información necesaria para la operación del conjunto y la prestación del servicio contratado por la administración.</p>
+      </section>
+
+      <section>
+        <h2>3. Para qué usamos tus datos</h2>
+        <p>Usamos tu información exclusivamente para gestionar y entregar los servicios de la plataforma: administrar reservas, PQRS y cartera; enviar notificaciones y recordatorios vía WhatsApp; publicar comunicados; y personalizar tu experiencia. <strong>No vendemos, alquilamos ni compartimos tus datos personales con terceros con fines comerciales.</strong></p>
+      </section>
+
+      <section>
+        <h2>4. Servicios de terceros</h2>
+        <p>Para operar la plataforma usamos: <strong>Supabase</strong> (almacenamiento y autenticación), <strong>Twilio</strong> (notificaciones por WhatsApp) y <strong>Vercel</strong> (alojamiento). Cada uno cuenta con su propia política de privacidad y procesa los datos bajo nuestras instrucciones.</p>
+      </section>
+
+      <section>
+        <h2>5. Retención de datos</h2>
+        <p>Conservamos los datos mientras exista una relación activa entre el conjunto residencial y Francoorp SAS. Si se solicita la eliminación de una cuenta, borraremos los datos en un plazo de 30 días hábiles, salvo aquellos que debamos conservar por obligaciones legales, contables o fiscales.</p>
+      </section>
+
+      <section>
+        <h2>6. Tus derechos</h2>
+        <p>De acuerdo con la <strong>Ley 1581 de 2012</strong> de Colombia, tienes derecho a conocer, actualizar y rectificar tus datos personales; solicitar prueba de la autorización otorgada; ser informado sobre el uso de tus datos; revocar la autorización y solicitar la supresión de tus datos; y acceder gratuitamente a ellos. Para ejercer cualquiera de estos derechos escríbenos a <a href="mailto:gerencia@francoorp.com">gerencia@francoorp.com</a>.</p>
+      </section>
+
+      <section>
+        <h2>7. Seguridad</h2>
+        <p>Implementamos medidas técnicas y organizativas para proteger tus datos contra acceso no autorizado, pérdida o alteración. Cada conjunto está aislado a nivel de base de datos mediante seguridad por filas (RLS de PostgreSQL) y toda la comunicación entre tu navegador y la plataforma está cifrada mediante HTTPS.</p>
+      </section>
+
+      <section>
+        <h2>8. Cambios a esta política</h2>
+        <p>Podemos actualizar esta política ocasionalmente. Te notificaremos sobre cambios significativos a través del correo electrónico registrado. El uso continuado de la plataforma después de dichos cambios constituye la aceptación de la política actualizada.</p>
+      </section>
+
+      <section>
+        <h2>9. Contacto</h2>
+        <p>Si tienes preguntas sobre esta política, contáctanos en:</p>
+        <div class="contact-card">
+          <p class="name">Francoorp SAS — Zenda Living</p>
+          <p class="meta">Colombia</p>
+          <a href="mailto:gerencia@francoorp.com">gerencia@francoorp.com</a>
+        </div>
+      </section>
     </div>
   </div>
 </main>

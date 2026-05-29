@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Términos y Condiciones · Zenda Living</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/tech/zendaliving/assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/tech/zendaliving/assets/favicon-16.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,34 +14,29 @@
 <style>
   :root {
     --ink:    oklch(0.20 0.06 270);
-    --ink-soft: oklch(0.32 0.08 266);
-    --navy-700: oklch(0.40 0.10 264);
-    --navy-200: oklch(0.88 0.025 260);
-    --navy-100: oklch(0.94 0.015 260);
-    --cream:    oklch(0.985 0.008 85);
-    --paper:    oklch(0.97 0.012 80);
-    --clay:     oklch(0.55 0.14 152);
+    --ink-soft: oklch(0.40 0.06 268);
+    --navy-700: oklch(0.46 0.06 266);
+    --navy-200: oklch(0.88 0.012 260);
+    --navy-100: oklch(0.94 0.008 260);
+    --cream:    oklch(0.985 0 0);
+    --paper:    oklch(0.97 0 0);
+    --clay:     oklch(0.55 0.13 268);
     --serif: 'Instrument Serif', 'Times New Roman', serif;
     --sans:  'Inter', system-ui, sans-serif;
     --mono:  'JetBrains Mono', ui-monospace, monospace;
-    --max:   840px;
+    --max:   780px;
     --gutter: clamp(20px, 4vw, 40px);
   }
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
-    font-family: var(--sans);
-    color: var(--ink);
-    background: var(--cream);
-    -webkit-font-smoothing: antialiased;
-    font-size: 16px;
-    line-height: 1.6;
+    font-family: var(--sans); color: var(--ink); background: var(--cream);
+    -webkit-font-smoothing: antialiased; font-size: 16px; line-height: 1.6;
   }
-  a { color: var(--ink); }
+  a { color: var(--clay); }
   img { display: block; max-width: 100%; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 
-  /* Nav */
   .nav {
     position: sticky; top: 0; z-index: 50;
     background: color-mix(in oklch, var(--cream) 85%, transparent);
@@ -47,78 +44,43 @@
     border-bottom: 1px solid color-mix(in oklch, var(--navy-200) 50%, transparent);
   }
   .nav-row {
-    max-width: 1240px; margin: 0 auto;
-    padding: 0 var(--gutter);
-    display: flex; align-items: center; justify-content: space-between;
-    height: 72px;
+    max-width: 1240px; margin: 0 auto; padding: 0 var(--gutter);
+    display: flex; align-items: center; justify-content: space-between; height: 80px;
   }
-  .logo img { height: 36px; width: auto; }
-  .back-link {
-    text-decoration: none;
-    font-size: 14px;
-    color: var(--ink-soft);
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .back-link:hover { color: var(--ink); }
+  .logo img { height: 52px; width: auto; }
+  .back-link { text-decoration: none; font-size: 14px; color: var(--ink-soft); display: inline-flex; align-items: center; gap: 6px; }
+  .back-link:hover { color: var(--clay); }
 
-  /* Content */
-  main { padding: clamp(48px, 8vw, 96px) 0 clamp(80px, 12vw, 160px); }
+  main { padding: clamp(48px, 8vw, 88px) 0 clamp(72px, 10vw, 128px); }
 
   .eyebrow {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--navy-700);
-    font-weight: 500;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--navy-700); font-weight: 500;
     display: inline-flex; align-items: center; gap: 8px;
   }
   .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--clay); }
 
   h1 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(40px, 6vw, 64px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 16px 0 0;
-    color: var(--ink);
+    font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 6vw, 60px);
+    line-height: 1.05; letter-spacing: -0.02em; margin: 16px 0 0; color: var(--ink);
   }
   .updated { font-family: var(--mono); font-size: 12px; color: var(--navy-700); margin-top: 16px; }
 
-  .content-placeholder {
-    margin-top: clamp(40px, 5vw, 64px);
-    padding: clamp(32px, 5vw, 56px);
-    background: white;
-    border: 1px dashed var(--navy-200);
-    border-radius: 14px;
-    color: var(--navy-700);
-    font-size: 15px;
-    text-align: center;
-    min-height: 320px;
-    display: grid;
-    place-items: center;
-  }
-  .content-placeholder code {
-    font-family: var(--mono);
-    background: var(--paper);
-    padding: 2px 8px;
-    border-radius: 4px;
-    color: var(--ink);
-  }
+  .legal { margin-top: clamp(40px, 5vw, 60px); }
+  .legal section { border-top: 1px solid var(--navy-100); padding-top: 28px; margin-top: 28px; }
+  .legal section:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+  .legal h2 { font-family: var(--sans); font-weight: 600; font-size: 19px; margin: 0 0 12px; color: var(--ink); letter-spacing: -0.01em; }
+  .legal p { margin: 0 0 12px; color: var(--ink-soft); font-size: 15.5px; line-height: 1.75; }
+  .legal p:last-child { margin-bottom: 0; }
+  .legal ul { margin: 4px 0 12px; padding-left: 20px; color: var(--ink-soft); font-size: 15.5px; line-height: 1.7; }
+  .legal li { margin-bottom: 6px; }
+  .legal strong { color: var(--ink); font-weight: 600; }
+  .contact-card { margin-top: 16px; padding: 20px 24px; border: 1px solid var(--navy-200); border-radius: 12px; background: white; }
+  .contact-card .name { font-weight: 700; font-size: 16px; color: var(--ink); margin: 0 0 6px; }
+  .contact-card .meta { font-size: 14px; color: var(--navy-700); margin: 0 0 3px; }
 
-  /* Footer */
-  footer {
-    padding: 32px 0;
-    border-top: 1px solid var(--navy-200);
-    font-size: 12.5px;
-    color: var(--navy-700);
-  }
-  footer .row {
-    max-width: 1240px; margin: 0 auto;
-    padding: 0 var(--gutter);
-    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px;
-  }
+  footer { padding: 32px 0; border-top: 1px solid var(--navy-200); font-size: 12.5px; color: var(--navy-700); }
+  footer .row { max-width: 1240px; margin: 0 auto; padding: 0 var(--gutter); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
   footer a { color: var(--navy-700); text-decoration: none; }
   footer .links { display: flex; gap: 22px; }
 </style>
@@ -138,14 +100,73 @@
   <div class="wrap">
     <span class="eyebrow"><span class="dot"></span>LEGAL</span>
     <h1>Términos y Condiciones</h1>
-    <div class="updated">Última actualización: —</div>
+    <div class="updated">Última actualización: mayo de 2026</div>
 
-    <div class="content-placeholder">
-      <div>
-        <div style="font-size:13px;font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;color:var(--clay);">Contenido pendiente</div>
-        <div>Pega aquí el texto de tus Términos y Condiciones.<br/>
-        Edita este archivo: <code>terms.html</code></div>
-      </div>
+    <div class="legal">
+      <section>
+        <h2>1. Aceptación de los términos</h2>
+        <p>Estos Términos y Condiciones regulan el uso de la plataforma <strong>Zenda Living</strong>, operada por <strong>Francoorp SAS</strong>. Al contratar o usar la plataforma, el conjunto residencial, su administración y los residentes aceptan estos términos en su totalidad.</p>
+      </section>
+
+      <section>
+        <h2>2. Descripción del servicio</h2>
+        <p>Zenda Living es una plataforma SaaS para la administración de conjuntos residenciales y propiedades horizontales. Incluye módulos de reservas de zonas comunes, PQRS, comunicados, estado de cuenta, visitantes, documentos y una aplicación para residentes, entre otros. Los módulos disponibles dependen del plan contratado.</p>
+      </section>
+
+      <section>
+        <h2>3. Cuentas y responsabilidades del cliente</h2>
+        <p>La administración del conjunto es responsable de la veracidad de la información cargada, de gestionar los accesos de su equipo y residentes, y de usar la plataforma conforme a la ley y al reglamento de propiedad horizontal. Cada usuario es responsable de mantener la confidencialidad de sus credenciales.</p>
+      </section>
+
+      <section>
+        <h2>4. Planes, precios y pagos</h2>
+        <p>El servicio se presta bajo los planes <strong>Zenda One</strong>, <strong>Zenda Plus</strong> y <strong>Zenda Prime</strong>, cada uno con un valor de implementación (setup) inicial y una mensualidad, según el número de sedes. Los valores vigentes son los publicados en la página de planes. La mensualidad se factura de forma periódica y el setup se cobra una sola vez al inicio.</p>
+      </section>
+
+      <section>
+        <h2>5. Permanencia y cancelación</h2>
+        <p>Los planes contemplan un <strong>contrato mínimo de permanencia de 6 meses</strong>. El primer mes de mantenimiento es gratuito. Vencido el periodo mínimo, el servicio puede cancelarse con aviso previo; los valores ya pagados no son reembolsables salvo disposición legal en contrario.</p>
+      </section>
+
+      <section>
+        <h2>6. Uso aceptable</h2>
+        <p>El cliente se compromete a no usar la plataforma para fines ilícitos, a no intentar vulnerar su seguridad, ni a cargar contenido que infrinja derechos de terceros. Nos reservamos el derecho de suspender cuentas que incumplan estas condiciones.</p>
+      </section>
+
+      <section>
+        <h2>7. Propiedad intelectual</h2>
+        <p>La plataforma, su código, diseño, marca y contenido son propiedad de Francoorp SAS. El contrato otorga una licencia de uso, no una transferencia de propiedad. Los datos cargados por el conjunto residencial son y seguirán siendo de su titularidad.</p>
+      </section>
+
+      <section>
+        <h2>8. Disponibilidad y soporte</h2>
+        <p>Trabajamos para mantener la plataforma disponible de forma continua y brindamos soporte según el plan contratado. Pueden presentarse interrupciones por mantenimiento o causas ajenas a nuestro control; en esos casos haremos lo razonable para restablecer el servicio a la mayor brevedad.</p>
+      </section>
+
+      <section>
+        <h2>9. Limitación de responsabilidad</h2>
+        <p>Zenda Living es una herramienta de gestión; la administración del conjunto conserva la responsabilidad sobre sus decisiones operativas, financieras y legales. Francoorp SAS no será responsable por daños indirectos derivados del uso o la imposibilidad de uso de la plataforma, en la medida permitida por la ley.</p>
+      </section>
+
+      <section>
+        <h2>10. Terminación</h2>
+        <p>Cualquiera de las partes puede dar por terminado el servicio conforme a lo pactado. A la terminación, el cliente podrá solicitar la exportación de sus datos dentro de los plazos acordados, tras lo cual se aplicará la política de retención descrita en la Política de Privacidad.</p>
+      </section>
+
+      <section>
+        <h2>11. Ley aplicable</h2>
+        <p>Estos términos se rigen por las leyes de la República de Colombia. Cualquier controversia se resolverá ante los jueces competentes del domicilio de Francoorp SAS.</p>
+      </section>
+
+      <section>
+        <h2>12. Contacto</h2>
+        <p>Para preguntas sobre estos términos, contáctanos en:</p>
+        <div class="contact-card">
+          <p class="name">Francoorp SAS — Zenda Living</p>
+          <p class="meta">Colombia</p>
+          <a href="mailto:gerencia@francoorp.com">gerencia@francoorp.com</a>
+        </div>
+      </section>
     </div>
   </div>
 </main>
