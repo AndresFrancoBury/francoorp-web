@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Términos y Condiciones · Zenda Living</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink:    oklch(0.20 0.06 270);
+    --ink-soft: oklch(0.32 0.08 266);
+    --navy-700: oklch(0.40 0.10 264);
+    --navy-200: oklch(0.88 0.025 260);
+    --navy-100: oklch(0.94 0.015 260);
+    --cream:    oklch(0.985 0.008 85);
+    --paper:    oklch(0.97 0.012 80);
+    --clay:     oklch(0.55 0.14 152);
+    --serif: 'Instrument Serif', 'Times New Roman', serif;
+    --sans:  'Inter', system-ui, sans-serif;
+    --mono:  'JetBrains Mono', ui-monospace, monospace;
+    --max:   840px;
+    --gutter: clamp(20px, 4vw, 40px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--cream);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  a { color: var(--ink); }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* Nav */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in oklch, var(--cream) 85%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid color-mix(in oklch, var(--navy-200) 50%, transparent);
+  }
+  .nav-row {
+    max-width: 1240px; margin: 0 auto;
+    padding: 0 var(--gutter);
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .logo img { height: 36px; width: auto; }
+  .back-link {
+    text-decoration: none;
+    font-size: 14px;
+    color: var(--ink-soft);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .back-link:hover { color: var(--ink); }
+
+  /* Content */
+  main { padding: clamp(48px, 8vw, 96px) 0 clamp(80px, 12vw, 160px); }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy-700);
+    font-weight: 500;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--clay); }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 16px 0 0;
+    color: var(--ink);
+  }
+  .updated { font-family: var(--mono); font-size: 12px; color: var(--navy-700); margin-top: 16px; }
+
+  .content-placeholder {
+    margin-top: clamp(40px, 5vw, 64px);
+    padding: clamp(32px, 5vw, 56px);
+    background: white;
+    border: 1px dashed var(--navy-200);
+    border-radius: 14px;
+    color: var(--navy-700);
+    font-size: 15px;
+    text-align: center;
+    min-height: 320px;
+    display: grid;
+    place-items: center;
+  }
+  .content-placeholder code {
+    font-family: var(--mono);
+    background: var(--paper);
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+
+  /* Footer */
+  footer {
+    padding: 32px 0;
+    border-top: 1px solid var(--navy-200);
+    font-size: 12.5px;
+    color: var(--navy-700);
+  }
+  footer .row {
+    max-width: 1240px; margin: 0 auto;
+    padding: 0 var(--gutter);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+  }
+  footer a { color: var(--navy-700); text-decoration: none; }
+  footer .links { display: flex; gap: 22px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-row">
+    <a href="/tech/zendaliving/index.html" class="logo" aria-label="Zenda Living">
+      <img src="/tech/zendaliving/assets/zenda-logo.png" alt="Zenda Living" />
+    </a>
+    <a href="/tech/zendaliving/index.html" class="back-link">← Volver al inicio</a>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span>LEGAL</span>
+    <h1>Términos y Condiciones</h1>
+    <div class="updated">Última actualización: —</div>
+
+    <div class="content-placeholder">
+      <div>
+        <div style="font-size:13px;font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;color:var(--clay);">Contenido pendiente</div>
+        <div>Pega aquí el texto de tus Términos y Condiciones.<br/>
+        Edita este archivo: <code>terms.html</code></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="row">
+    <div>© 2026 Francoorp SAS</div>
+    <div class="links">
+      <a href="/tech/zendaliving/terms.html">Términos</a>
+      <a href="/tech/zendaliving/privacy.html">Privacidad</a>
+      <a href="/tech/zendaliving/cookies.html">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
