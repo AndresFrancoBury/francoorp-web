@@ -149,15 +149,20 @@
     box-shadow: 0 6px 24px -18px rgba(19,28,48,0.4);
   }
   .nav-row {
-    display: flex; align-items: center; justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
     height: 84px;
   }
+  .nav-row .logo { justify-self: start; }
+  .nav-row .nav-cta { justify-self: end; }
   .logo { display:flex; align-items:center; gap:10px; font-weight:600; letter-spacing:-0.01em; }
-  .nav-links { display: flex; gap: 32px; font-size: 14.5px; color: var(--navy-800); }
+  .nav-links { display: flex; gap: 32px; font-size: 14.5px; color: var(--navy-800); justify-self: center; }
   .nav-links a:hover { color: var(--clay); }
   .nav-cta { display: flex; gap: 10px; align-items: center; }
   @media (max-width: 880px) {
     .nav-links { display: none; }
+    .nav-row { grid-template-columns: 1fr auto; }
   }
 
   /* ───────── Section spacing ───────── */
